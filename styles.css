@@ -10,6 +10,19 @@
  * Copyright 2011-2022 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+ /* Estilos para os cards de livro */
+.card {
+  transition: transform 0.3s ease;
+}
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+/* Estilos para o toast */
+.toast-container {
+  z-index: 1100;
+}
 :root {
   --bs-blue: #0d6efd;
   --bs-indigo: #6610f2;
