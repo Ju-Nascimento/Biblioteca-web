@@ -1,13 +1,12 @@
-// Armazenamento de dados
+    // Arquivo json para cadastro de livros
 let books = JSON.parse(localStorage.getItem('biblioteca_livros')) || [
     {
         id: 1,
         title: "Dom Quixote",
         author: "Miguel de Cervantes",
-        cover: "https://m.media-amazon.com/images/I/91VokXkn8hL._SY425_.jpg",
+        cover: "https://https://m.media-amazon.com/images/G/32/apparel/rcxgs/tile._CB483369971_.gif.media-amazon.com/images/I/91VokXkn8hL._SY425_.jpg",
         price: 29.90,
         isAvailable: true,
-        rating: 4,
         description: "Clássico da literatura espanhola sobre um cavaleiro sonhador."
     },
     {
@@ -17,7 +16,6 @@ let books = JSON.parse(localStorage.getItem('biblioteca_livros')) || [
         cover: "https://m.media-amazon.com/images/I/71kxa1-0mfL._SY425_.jpg",
         price: 34.90,
         isAvailable: true,
-        rating: 5,
         description: "Distopia sobre vigilância e controle totalitário."
     }
 ];
@@ -33,7 +31,7 @@ function saveCart() {
     localStorage.setItem('biblioteca_carrinho', JSON.stringify(cart));
 }
 
-// Função para renderizar livros
+// Função para renderizar livros na tela inicial
 function renderBooks() {
     const booksContainer = document.getElementById("booksContainer");
     booksContainer.innerHTML = "";
@@ -61,19 +59,18 @@ function renderBooks() {
                             <h5 class="fw-bolder">${book.title}</h5>
                             <p class="text-muted">${book.author}</p>
                           <p class="text-muted small">${book.category}</p>
-                            <div class="d-flex justify-content-center small text-warning mb-2">
-                                ${'<div class="bi-star-fill"></div>'.repeat(book.rating)}
-                                ${'<div class="bi-star"></div>'.repeat(5 - book.rating)}
-                            </div>
                             <span class="fw-bold">R$ ${book.price.toFixed(2)}</span>
                         </div>
                     </div>
                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                         <div class="text-center">
-                            <button class="btn btn-outline-dark mt-auto" onclick="addToCart(${book.id})" ${!book.isAvailable ? 'disabled' : ''}>
-                                ${book.isAvailable ? 'Reservar' : 'Esgotado'}
-                            </button>
-                            <button class="btn btn-sm btn-outline-secondary mt-2" onclick="showBookDetails(${book.id})">
+                            <button class="btn btn-outline-dark mt-auto"
+        onclick="abrirModalReserva('${book.title}', '${book.cover}')"
+        ${!book.isAvailable ? 'disabled' : ''}>
+  ${book.isAvailable ? 'Reservar' : 'Esgotado'}
+</button>
+
+                            <button class="btn btn-outline-dark mt-auto" onclick="showBookDetails(${book.id})">
                                 Detalhes
                             </button>
                         </div>
@@ -115,7 +112,7 @@ function registerBook(event) {
         description: document.getElementById("description").value,
         category: document.getElementById("category").value, // Novo campo
         isAvailable: document.getElementById("isAvailable").checked,
-        rating: 0
+        
     };
 
     books.push(newBook);
@@ -136,7 +133,7 @@ function showBookDetails(bookId) {
     const modalContent = `
         <div class="modal-header">
             <h5 class="modal-title">${book.title}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
         </div>
         <div class="modal-body">
             <div class="row">
@@ -145,29 +142,21 @@ function showBookDetails(bookId) {
                 </div>
                 <div class="col-md-8">
                     <p><strong>Autor:</strong> ${book.author}</p>
+                    <p><strong>Categoria:</strong> ${book.category}</p>
                     <p><strong>Preço:</strong> R$ ${book.price.toFixed(2)}</p>
-                    <p><strong>Disponibilidade:</strong> ${book.isAvailable ? 'Disponível' : 'Indisponível'}</p>
-                    <div class="mb-3">
-                        <strong>Avaliação:</strong>
-                        <div class="d-flex text-warning">
-                            ${'<i class="bi bi-star-fill"></i>'.repeat(book.rating)}
-                            ${'<i class="bi bi-star"></i>'.repeat(5 - book.rating)}
-                        </div>
-                    </div>
-                    <p><strong>Descrição:</strong><br>${book.description || 'Nenhuma descrição disponível.'}</p>
+                    <p><strong>Descrição:</strong> ${book.description || "Sem descrição."}</p>
+                    <p><strong>Status:</strong> ${book.isAvailable ? 'Disponível' : 'Indisponível'}</p>
                 </div>
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-            <button type="button" class="btn btn-primary" onclick="addToCart(${book.id})" ${!book.isAvailable ? 'disabled' : ''}>
-                ${book.isAvailable ? 'Reservar Livro' : 'Indisponível'}
-            </button>
+            <button class="btn btn-outline-danger me-auto" onclick="deleteBook(${book.id})">Excluir</button>
+            <button class="btn btn-dark" onclick="editBook(${book.id})">Editar</button>
+            <button class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
         </div>
     `;
-
+    document.querySelector("#bookModal .modal-content").innerHTML = modalContent;
     const modal = new bootstrap.Modal(document.getElementById('bookModal'));
-    document.getElementById('bookModal').querySelector('.modal-content').innerHTML = modalContent;
     modal.show();
 }
 
@@ -225,3 +214,45 @@ document.addEventListener("DOMContentLoaded", () => {
         document.body.appendChild(toastContainer);
     }
 });
+function deleteBook(bookId) {
+    const book = books.find(b => b.id === bookId);
+    if (!book) return;
+
+    if (confirm(`Tem certeza que deseja excluir o livro "${book.title}"?`)) {
+        books = books.filter(b => b.id !== bookId);
+        saveBooks();
+        renderBooks();
+        bootstrap.Modal.getInstance(document.getElementById('bookModal')).hide();
+        showToast(`"${book.title}" foi excluído com sucesso.`, "danger");
+    }
+}
+
+function editBook(bookId) {
+    const book = books.find(b => b.id === bookId);
+    if (!book) return;
+
+    // Preenche o formulário com os dados do livro
+    document.getElementById("title").value = book.title;
+    document.getElementById("author").value = book.author;
+    document.getElementById("cover").value = book.cover;
+    document.getElementById("price").value = book.price;
+    document.getElementById("description").value = book.description;
+    document.getElementById("category").value = book.category;
+    document.getElementById("isAvailable").checked = book.isAvailable;
+
+    // Remove o livro atual da lista temporariamente
+    books = books.filter(b => b.id !== bookId);
+    saveBooks();
+
+    // Abre o formulário para edição
+    document.getElementById("bookFormContainer").classList.remove("d-none");
+    bootstrap.Modal.getInstance(document.getElementById('bookModal')).hide();
+    showToast(`Edite os dados de "${book.title}" e clique em "Cadastrar Livro" para salvar.`, "info");
+}
+
+
+
+  // Inicializar contador ao carregar a página
+  document.addEventListener('DOMContentLoaded', atualizarContadorReservas);
+
+
