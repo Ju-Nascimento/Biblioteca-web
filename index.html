@@ -28,27 +28,31 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Início</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#!">Catálogo</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categorias</a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <li><a class="dropdown-item" href="#!">Ficção</a></li>
-                            <li><hr class="dropdown-divider" /></li>
-                            <li><a class="dropdown-item" href="#!">Não Ficção</a></li>
-                            <li><a class="dropdown-item" href="#!">Clássicos</a></li>
-                        </ul>
-                    </li>
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Início</a></li>
+                    
+                    
                     <li class="nav-item">
                         <a class="nav-link" href="#" id="showFormLink">Cadastrar Livro</a>
                     </li>
                 </ul>
                 <form class="d-flex">
-                    <button id="cartButton" class="btn btn-outline-dark" type="button">
+                    <button id="cartButton" class="btn btn-outline-dark btn-uniform" type="button">
                         <i class="bi-cart-fill me-1"></i>
                         Reservas
                         <span id="cartCounter" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                    </button>
+                      </button>
+                      <!--Botões de login e cadastro -->
+                      <div class="d-flex justify-content-end align-items-center gap-2 mb-3">
+                        <button type="button" class="btn btn-outline-dark btn-uniform" id="loginBtn">
+                          <i class="bi bi-person"></i> Login
+                        </button>
+                        <button type="button" class="btn btn-outline-dark btn-uniform" id="cadastroBtn">
+                          <i class="bi bi-person-plus"></i> Cadastro
+                        </button>
+                      </div>
+                      
+                      </div>
+                      
                 </form>
             </div>
         </div>
@@ -64,7 +68,8 @@
         </div>
     </header>
 
-    <!-- Formulário de Cadastro (inicialmente oculto) -->
+    <!-- Formulário de Cadastro de livros -->
+
     <section id="bookFormContainer" class="py-5 bg-light d-none">
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
@@ -122,11 +127,14 @@
         </div>
     </section>
 
-    <!-- Seção dos Livros -->
+    <!-- Seção dos Livros na pagina inicial-->
+
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center" id="booksContainer">
-                <!-- Livros serão renderizados aqui via JavaScript -->
+               
+                <!-- Livros são gerados via função em js -->
+
             </div>
         </div>
     </section>
@@ -136,19 +144,52 @@
         <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Biblioteca Online 2023</p></div>
     </footer>
 
+        <!-- Tela de detalhes sobre o livro -->
+
     <div class="modal fade" id="bookModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <!-- O conteúdo será inserido dinamicamente pelo JavaScript -->
+
+                <!-- Detalhes são gerados via js -->
+
             </div>
         </div>
     </div>
-    
+
+
+
+    <!--  TELA DE LOGIN E CADASTRO-->
+
+
+
+
+
+
+    <!--INSERIR FUNÇÃO DE EMPRESTAR LIVROS-->
+
+
+
+
+
+    <!--INSERIR FUNÇÃO DE CONSULTAR EMPRESTIMOS-->
+
+
+
+
+
+
+    <!--INSERIR FUNÇÃO DE COMPRAR LIVRO-->
+   
+
+  
+  
 
     <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     
     <!-- Scripts da aplicação -->
-    <script src="scripts.js"></script>
+    <script src="scripts.js">
+
+    </script>
 </body>
 </html>
