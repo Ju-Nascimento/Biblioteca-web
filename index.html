@@ -42,11 +42,11 @@
                         <span id="cartCounter" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                       </button>
                       <!--Botões de login e cadastro -->
-                      <div class="d-flex justify-content-end align-items-center gap-2 mb-3">
-                        <button type="button" class="btn btn-outline-dark btn-uniform" id="loginBtn">
+                      <div class="d-flex justify-content-end align-items-center gap-2 mb-3" id="loginButtons">
+                        <button type="button" class="btn btn-outline-dark btn-uniform" id="loginBtn" data-bs-toggle="modal" data-bs-target="#loginModal">
                           <i class="bi bi-person"></i> Login
                         </button>
-                        <button type="button" class="btn btn-outline-dark btn-uniform" id="cadastroBtn">
+                        <button type="button" class="btn btn-outline-dark btn-uniform" id="cadastroBtn" data-bs-toggle="modal" data-bs-target="#registerModal">
                           <i class="bi bi-person-plus"></i> Cadastro
                         </button>
                       </div>
@@ -159,8 +159,33 @@
 
 
     <!--  TELA DE LOGIN E CADASTRO-->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content p-4">
+                <form id="formSignIn" class="d-flex flex-column align-items-center gap-2">
+                    <h3>Bem-vindo de volta!</h3>
+                    <input type="text" id="username" placeholder="Username" class="form-control mb-2">
+                    <input type="password" id="password" placeholder="Senha" class="form-control mb-2">
+                    <button class="btn btn-dark" type="submit">Login</button>
+                    <span>Não é um membro?<a href="#" id="showRegister"> Registre-se agora</a></span>
+                </form>
+            </div>
+        </div>
+    </div>
 
-
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content p-4">
+                <form id="formSignUp" class="d-flex flex-column align-items-center gap-2">
+                    <h3>Crie sua conta</h3>
+                    <input type="text" id="usernameSignUp" placeholder="Username" class="form-control mb-2">
+                    <input type="password" id="passwordSignUp" placeholder="Senha" class="form-control mb-2">
+                    <button class="btn btn-dark" type="submit">Cadastrar</button>
+                    <span>Já é um membro?<a href="#" id="showLogin"> Faça login</a></span>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
 
