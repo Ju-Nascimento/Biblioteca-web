@@ -1,25 +1,8 @@
 // Arquivo json para cadastro de livros
-let books = JSON.parse(localStorage.getItem('biblioteca_livros')) || [
-  {
-    id: 1,
-    title: 'Dom Quixote',
-    author: 'Miguel de Cervantes',
-    cover:
-      'https://https://m.media-amazon.com/images/G/32/apparel/rcxgs/tile._CB483369971_.gif.media-amazon.com/images/I/91VokXkn8hL._SY425_.jpg',
-    price: 29.9,
-    isAvailable: true,
-    description: 'Clássico da literatura espanhola sobre um cavaleiro sonhador.'
-  },
-  {
-    id: 2,
-    title: '1984',
-    author: 'George Orwell',
-    cover: 'https://m.media-amazon.com/images/I/71kxa1-0mfL._SY425_.jpg',
-    price: 34.9,
-    isAvailable: true,
-    description: 'Distopia sobre vigilância e controle totalitário.'
-  }
+ let books = JSON.parse(localStorage.getItem('biblioteca_livros')) || [
+  
 ]
+  
 
 let users = JSON.parse(localStorage.getItem('biblioteca_usuarios')) || [
   {
@@ -376,3 +359,5 @@ function editBook(bookId) {
 
 // Inicializar contador ao carregar a página
 document.addEventListener('DOMContentLoaded', atualizarContadorReservas)
+
+
