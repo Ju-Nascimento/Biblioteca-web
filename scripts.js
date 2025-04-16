@@ -1,7 +1,79 @@
 // Arquivo json para cadastro de livros
  let books = JSON.parse(localStorage.getItem('biblioteca_livros')) || [
-  
+  {
+    id: 1,
+    title: "O Senhor dos Anéis",
+    author: "J.R.R. Tolkien",
+    cover: "https://m.media-amazon.com/images/I/81hCVEC0ExL._SL1500_.jpg",
+    isAvailable: true,
+    description: "Uma jornada épica para destruir o Um Anel e derrotar Sauron.",
+    price: 79.90
+  },
+  {
+    id: 2,
+    title: "1984",
+    author: "George Orwell",
+    cover: "https://covers.openlibrary.org/b/id/7222246-L.jpg",
+    isAvailable: true,
+    description: "Uma distopia sobre vigilância total e perda da liberdade.",
+    price: 39.90
+  },
+  {
+    id: 3,
+    title: "Dom Casmurro",
+    author: "Machado de Assis",
+    cover: "https://m.media-amazon.com/images/I/61Z2bMhGicL._SL1360_.jpg",
+    isAvailable: false,
+    description: "Bentinho narra suas memórias e suas dúvidas sobre Capitu.",
+    price: 29.90
+  },
+  {
+    id: 4,
+    title: "O Pequeno Príncipe",
+    author: "Antoine de Saint-Exupéry",
+    cover: "https://m.media-amazon.com/images/I/71IiouhdpAL._SL1500_.jpg",
+    isAvailable: true,
+    description: "Uma história sensível sobre amizade e descobertas.",
+    price: 24.90
+  },
+  {
+    id: 5,
+    title: "Harry Potter e a Pedra Filosofal",
+    author: "J.K. Rowling",
+    cover: "https://covers.openlibrary.org/b/id/7984916-L.jpg",
+    isAvailable: true,
+    description: "O início das aventuras do jovem bruxo Harry Potter.",
+    price: 59.90
+  },
+  {
+    id: 6,
+    title: "A Revolução dos Bichos",
+    author: "George Orwell",
+    cover: "https://m.media-amazon.com/images/I/91BsZhxCRjL._SL1500_.jpg",
+    isAvailable: false,
+    description: "Animais tomam uma fazenda para instaurar sua própria ordem.",
+    price: 34.90
+  },
+  {
+    id: 7,
+    title: "A Menina que Roubava Livros",
+    author: "Markus Zusak",
+    cover: "https://m.media-amazon.com/images/I/61L+4OBhm-L._SL1000_.jpg",
+    isAvailable: true,
+    description: "A vida de uma garota alemã durante a Segunda Guerra Mundial.",
+    price: 42.50
+  },
+  {
+    id: 8,
+    title: "O Código Da Vinci",
+    author: "Dan Brown",
+    cover: "https://m.media-amazon.com/images/I/710DjekSUkL._SL1500_.jpg",
+    isAvailable: true,
+    description: "Um thriller envolvendo segredos religiosos e simbologia.",
+    price: 49.90
+  }
 ]
+
   
 
 let users = JSON.parse(localStorage.getItem('biblioteca_usuarios')) || [
