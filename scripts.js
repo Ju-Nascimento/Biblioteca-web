@@ -1,5 +1,8 @@
 // Arquivo json para cadastro de livros
- let books = JSON.parse(localStorage.getItem('biblioteca_livros')) || [
+const BASE_URL =
+  'https://be11f58a-fdf1-4bfc-8cb4-feed1c1495af-00-9fh59pkh1764.picard.replit.dev'
+
+let books = JSON.parse(localStorage.getItem('biblioteca_livros')) || [
   {
     id: 1,
     title: "O Senhor dos Anéis",
@@ -90,17 +93,31 @@ function createUser(event) {
   const password = document.getElementById('passwordSignUp').value
 
   const newUser = {
-    id: users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1,
-    username: username,
-    password: password
+    // id: users.length > 0 ? Math.max(...users.map(u => u.id)) + 1 : 1,
+    nome: username,
+    email: password
   }
-  users.push(newUser)
-  localStorage.setItem('biblioteca_usuario_logado', JSON.stringify(newUser))
-  localStorage.setItem('biblioteca_usuarios', JSON.stringify(users))
-  setTimeout(() => {
-    window.location.reload()
-  }, 1000)
-  return
+
+  fetch(BASE_URL + '/usuarios', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newUser)
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Usuário criado com sucesso:', data)
+      users.push(newUser)
+      localStorage.setItem('biblioteca_usuario_logado', JSON.stringify(newUser))
+      localStorage.setItem('biblioteca_usuarios', JSON.stringify(users))
+      setTimeout(() => {
+        window.location.reload()
+      }, 1000)
+    })
+    .catch(error => {
+      console.error('Erro ao criar o usuário:', error)
+    })
 }
 
 function authenticateUser(event) {
@@ -108,9 +125,7 @@ function authenticateUser(event) {
   const username = document.getElementById('username').value
   const password = document.getElementById('password').value
 
-  const user = users.find(
-    u => u.username === username && u.password === password
-  )
+  const user = users.find(u => u.nome === username && u.email === password)
   if (user) {
     localStorage.setItem('biblioteca_usuario_logado', JSON.stringify(user))
     showToast(`Login efetuado com sucesso!`, 'success')
@@ -135,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
   )
   if (loggedUser) {
     loginButtons.innerHTML = `
-            <button class="btn primary">${loggedUser.username.toUpperCase()}</button>
+            <button class="btn primary">${loggedUser.nome.toUpperCase()}</button>
             <button class="btn btn-outline-danger" onclick="logoutUser()">Sair</button>
             `
   }
