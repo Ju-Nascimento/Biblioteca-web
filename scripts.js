@@ -356,6 +356,9 @@ function showToast(message, type = 'success') {
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', () => {
+  if (!localStorage.getItem('biblioteca_livros') || JSON.parse(localStorage.getItem('biblioteca_livros')).length === 0) {
+    localStorage.setItem('biblioteca_livros', JSON.stringify(books))
+  }
   // Renderiza os livros e atualiza o carrinho
   renderBooks()
   updateCartCounter()
